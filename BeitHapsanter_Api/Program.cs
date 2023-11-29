@@ -1,11 +1,23 @@
+using BeitHapsanter_Core.Repositories;
+using BeitHapsanter_Data;
+using BeitHapsanter_Data.Repositories;
+using BeitHapsanter_Service.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<CustomersService>();
+builder.Services.AddScoped<MusicalInstrumentService>();
+builder.Services.AddScoped<ProviderService>();
+builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<IMusicalInstrumentRepository, MusicalInstrumentRepository>();
+builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+builder.Services.AddSingleton<DataContext>();
 
 var app = builder.Build();
 

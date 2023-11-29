@@ -20,7 +20,7 @@ namespace BeitHapsanter_Data.Repositories
         {
             return _context.MusicalInstrumentList;
         }
-        public MusicalInstrument GetById(int code)
+        public MusicalInstrument Get(int code)
         {
             return _context.MusicalInstrumentList.First((x) => x.code == code);
         }

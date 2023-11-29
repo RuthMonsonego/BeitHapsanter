@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BeitHapsanter_Data\BeitHapsanter_Data.csproj" />
+    <ProjectReference Include="..\BeitHapsanter_Service\BeitHapsanter_Service.csproj" />
+  </ItemGroup>
+
 </Project>

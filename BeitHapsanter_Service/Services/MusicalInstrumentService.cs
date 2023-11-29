@@ -20,9 +20,9 @@ namespace BeitHapsanter_Service.Services
         {
             return musicalInstrumentRepository.GetAllMusicalInstruments();
         }
-        public MusicalInstrument GetById(int id)
+        public MusicalInstrument Get(int id)
         {
-            return musicalInstrumentRepository.GetById(id);
+            return musicalInstrumentRepository.Get(id);
         }
         public void Post(MusicalInstrument m)
         {

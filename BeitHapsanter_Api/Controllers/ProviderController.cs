@@ -1,5 +1,5 @@
-﻿using BeitHapsanter;
-using BeitHapsanter.Core.Entitits;
+﻿using BeitHapsanter_Core.Entitits;
+using BeitHapsanter_Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeitHapsanter_Api.Controllers
@@ -9,8 +9,8 @@ namespace BeitHapsanter_Api.Controllers
     [ApiController]
     public class ProviderController : ControllerBase
     {
-        private readonly DataContext _data;
-        public ProviderController(DataContext context)
+        private readonly ProviderService _data;
+        public ProviderController(ProviderService context)
         {
             _data = context;
         }
@@ -19,48 +19,35 @@ namespace BeitHapsanter_Api.Controllers
         [HttpGet]
         public List<Provider> Get()
         {
-            return _data.ProviderList;
+            return _data.getProviders();
         }
 
         //GET api/<ProviderController>/5
         [HttpGet("{id}")]
-        public ActionResult<Provider> Get(int id)
+        public Provider Get(int id)
         {
-            var f = _data.ProviderList.Find(e => e.id == id);
-            if (f != null)
-                return f;
-            return NotFound();
+            return _data.Get(id);
         }
 
         // POST api/<ProviderController>
         [HttpPost]
         public void Post([FromBody] Provider p)
         {
-            _data.ProviderList.Add(new Provider { id = _data.ProviderCount++, name = p.name, phone=p.phone,address=p.address});
+            _data.Post(p);
         }
 
         // POST api/<ProviderController>
         [HttpPut]
-        public ActionResult Put(int id, [FromBody] Provider p)
+        public void Put(int id, [FromBody] Provider p)
         {
-            var f = _data.ProviderList.Find(e => e.id == id);
-            if (f == null)
-                return NotFound();
-            f.name = p.name;
-            f.phone = p.phone;
-            f.address = p.address;
-            return Ok();
+            _data.Put(id, p);
         }
 
         // DELETE api/<ProviderController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public void Delete(int id)
         {
-            var p = _data.ProviderList.Find(e => e.id == id);
-            if (p == null)
-                return NotFound();
-            _data.ProviderList.Remove(p);
-            return Ok();
+            _data.Delete(id);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using BeitHapsanter;
-using BeitHapsanter.Core.Entitits;
+﻿using BeitHapsanter_Core.Entitits;
+using BeitHapsanter_Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeitHapsanter_Api.Controllers
@@ -8,8 +8,8 @@ namespace BeitHapsanter_Api.Controllers
     [ApiController]
     public class MusicalInstrumentController : ControllerBase
     {
-        private readonly DataContext _data;
-        public MusicalInstrumentController(DataContext context)
+        private readonly MusicalInstrumentService _data;
+        public MusicalInstrumentController(MusicalInstrumentService context)
         {
             _data = context;
         }
@@ -17,55 +17,34 @@ namespace BeitHapsanter_Api.Controllers
         [HttpGet]
         public List<MusicalInstrument> Get()
         {
-            return _data.MusicalInstrumentList;
+            return _data.getMusicalInstruments();
         }
 
         //GET api/<MusicalInstrumentController>/5
         [HttpGet("{code}")]
-        public ActionResult<MusicalInstrument> Get(int code)
+        public MusicalInstrument Get(int code)
         {
-            var f = _data.MusicalInstrumentList.Find(e => e.code == code);
-            if (f != null)
-                return f;
-            return NotFound();
+            return _data.Get(code);
         }
         // POST api/<MusicalInstrumentController>
         [HttpPost]
-        public ActionResult Post([FromBody] MusicalInstrument m)
+        public void Post([FromBody] MusicalInstrument m)
         {
-            var f = _data.ProviderList.Find(e => e.id == m.providerCode);
-            if (f == null)
-                return NotFound();
-            _data.MusicalInstrumentList.Add(new MusicalInstrument { code = _data.MusicalInstrumentCount++, name = m.name , manufacturer =m.manufacturer , costPrice =m.costPrice , purchasePrice =m.purchasePrice , stockpile =m.stockpile , providerCode =m.providerCode }) ;
-            return Ok();
+            _data.Post(m); 
         }
 
         // PUT api/<MusicalInstrumentController>
         [HttpPut]
-        public ActionResult Put(int code, [FromBody] MusicalInstrument m)
+        public void Put(int code, [FromBody] MusicalInstrument m)
         {
-            var f1 = _data.MusicalInstrumentList.Find(e => e.code == code);
-            var f2 = _data.ProviderList.Find(e => e.id == m.providerCode);
-            if (f1 == null||f2==null)
-                return NotFound();
-            f1.name = m.name;
-            f1.manufacturer = m.manufacturer;
-            f1.costPrice = m.costPrice;
-            f1.purchasePrice = m.purchasePrice;
-            f1.stockpile = m.stockpile;
-            f1.providerCode = m.providerCode;
-            return Ok();
+            _data.Put(code, m);
         }
 
         // DELETE api/<MusicaLInstrumentController>/5
         [HttpDelete("{code}")]
-        public ActionResult Delete(int code)
+        public void Delete(int code)
         {
-            var m = _data.MusicalInstrumentList.Find(e => e.code == code);
-            if (m == null)
-                return NotFound();
-            _data.MusicalInstrumentList.Remove(m);
-            return Ok();
+            _data.Delete(code);
         }
     }
 }

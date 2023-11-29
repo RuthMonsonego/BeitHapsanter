@@ -1,4 +1,4 @@
-﻿using BeitHapsanter.Core.Entitits;
+﻿using BeitHapsanter_Core.Entitits;
 
 namespace BeitHapsanter_Data
 {

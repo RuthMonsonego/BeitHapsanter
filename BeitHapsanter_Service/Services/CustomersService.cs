@@ -1,6 +1,5 @@
 ﻿using BeitHapsanter_Core.Entitits;
 using BeitHapsanter_Core.Repositories;
-using BeitHapsanter_Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +20,9 @@ namespace BeitHapsanter_Service.Services
         {
             return customersRepository.AllCustomers();
         }
-        public Customers GetById(int id)
+        public Customers Get(int id)
         {
-            return customersRepository.GetById(id);
+            return customersRepository.Get(id);
         }
         public void Post(Customers c)
         {

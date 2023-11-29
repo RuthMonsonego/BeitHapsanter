@@ -17,7 +17,7 @@ namespace BeitHapsanter_Data.Repositories
         }
 
         public List<Customers> AllCustomers() { return _context.CustomersList; }
-        public Customers GetById(int id)
+        public Customers Get(int id)
         {
             return _context.CustomersList.First((x) => x.id == id);
         }

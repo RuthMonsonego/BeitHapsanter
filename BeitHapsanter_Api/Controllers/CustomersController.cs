@@ -1,5 +1,5 @@
-﻿using BeitHapsanter;
-using BeitHapsanter.Core.Entitits;
+﻿using BeitHapsanter_Core.Entitits;
+using BeitHapsanter_Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeitHapsanter_Api.Controllers
@@ -8,8 +8,8 @@ namespace BeitHapsanter_Api.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly DataContext _data;
-        public CustomersController(DataContext context)
+        private readonly CustomersService _data;
+        public CustomersController(CustomersService context)
         {
             _data = context;
         }
@@ -18,48 +18,34 @@ namespace BeitHapsanter_Api.Controllers
         [HttpGet]
         public List<Customers> Get()
         {
-            return _data.CustomersList;
+            return _data.getCustomers();
         }
 
         //GET api/<CustomersController>/5
         [HttpGet("{id}")]
-        public ActionResult<Customers> Get(int id)
+        public Customers Get(int id)
         {
-            var f = _data.CustomersList.Find(e => e.id == id);
-            if (f != null)
-                return f;
-            return NotFound();
+            return _data.Get(id);
         }
 
         // POST api/<CustomersController>
         [HttpPost]
         public void Post([FromBody] Customers c)
         {
-            _data.CustomersList.Add(new Customers { id = _data.CustomersCount++, name = c.name, phone = c.phone, address = c.address, lastPurchaseDate = c.lastPurchaseDate });
+            _data.Post(c); 
         }
 
         [HttpPut]
-        public ActionResult Put(int id, [FromBody] Customers c)
+        public void Put(int id, [FromBody] Customers c)
         {
-            var f = _data.CustomersList.Find(e => e.id == id);
-            if (f == null)
-                return NotFound();
-            f.name = c.name;
-            f.phone = c.phone;
-            f.address = c.address;
-            f.lastPurchaseDate = c.lastPurchaseDate;
-            return Ok();
+            _data.Put(id, c);
         }
 
         // DELETE api/<CustomersController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public void Delete(int id)
         {
-            var c = _data.CustomersList.Find(e => e.id == id);
-            if (c == null)
-                return NotFound();
-            _data.CustomersList.Remove(c);
-            return Ok();
+            _data.Delete(id);
         }
     }
 }

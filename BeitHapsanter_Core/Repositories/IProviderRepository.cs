@@ -10,7 +10,7 @@ namespace BeitHapsanter_Core.Repositories
     public interface IProviderRepository
     {
         List<Provider> GetAllProviders();
-        Provider GetById(int id);
+        Provider Get(int id);
         void Post(Provider p);
         void Put(int id, Provider p);
         void Delete(int id);

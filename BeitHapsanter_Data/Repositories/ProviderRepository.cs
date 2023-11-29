@@ -20,7 +20,7 @@ namespace BeitHapsanter_Data.Repositories
         {
             return _context.ProviderList;
         }
-        public Provider GetById(int id)
+        public Provider Get(int id)
         {
             return _context.ProviderList.First((x) => x.id == id);
         }

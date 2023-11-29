@@ -20,9 +20,9 @@ namespace BeitHapsanter_Service.Services
         {
             return providerRepository.GetAllProviders();
         }
-        public Provider GetById(int id)
+        public Provider Get(int id)
         {
-            return providerRepository.GetById(id);
+            return providerRepository.Get(id);
         }
         public void Post(Provider p)
         {

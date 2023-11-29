@@ -10,7 +10,7 @@ namespace BeitHapsanter_Core.Repositories
     public interface IMusicalInstrumentRepository
     {
         List<MusicalInstrument> GetAllMusicalInstruments();
-        MusicalInstrument GetById(int code);
+        MusicalInstrument Get(int code);
         void Post(MusicalInstrument m);
         void Put(int code, MusicalInstrument m);
         void Delete(int code);

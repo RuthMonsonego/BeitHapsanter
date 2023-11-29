@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BeitHapsanter_Core\BeitHapsanter_Core.csproj" />
+  </ItemGroup>
+
 </Project>
