@@ -11,6 +11,7 @@ namespace BeitHapsanter_Service.Services
     public class MusicalInstrumentService
     {
         private readonly IMusicalInstrumentRepository musicalInstrumentRepository;
+
         public MusicalInstrumentService(IMusicalInstrumentRepository musicalInstrumentRepository)
         {
             this.musicalInstrumentRepository = musicalInstrumentRepository;
@@ -20,10 +21,12 @@ namespace BeitHapsanter_Service.Services
         {
             return musicalInstrumentRepository.GetAllMusicalInstruments();
         }
+
         public MusicalInstrument Get(int id)
         {
             return musicalInstrumentRepository.Get(id);
         }
+
         public void Post(MusicalInstrument m)
         {
             musicalInstrumentRepository.Post(m);

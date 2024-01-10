@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BeitHapsanter_Data.Repositories
 {
-    public class CustomersRepository: ICustomersRepository
+    public class CustomersRepository : ICustomersRepository
     {
         private readonly DataContext _context;
         public CustomersRepository(DataContext context)
@@ -16,31 +16,39 @@ namespace BeitHapsanter_Data.Repositories
             _context = context;
         }
 
-        public List<Customers> AllCustomers() { return _context.CustomersList; }
-        public Customers Get(int id)
+        public List<Customer> GetAllCustomers()
         {
-            return _context.CustomersList.First((x) => x.id == id);
-        }
-        public void Post(Customers c)
-        {
-            _context.CustomersList.Add(new Customers { id = _context.CustomersCount++, name = c.name, phone = c.phone, address = c.address, lastPurchaseDate = c.lastPurchaseDate });
+            return _context.Customers.ToList();
         }
 
-        public void Put(int id, Customers c)
+        public Customer Get(int id)
         {
-            var f = _context.CustomersList.Find(e => e.id == id);
+            return _context.Customers.First((x) => x.Id == id);
+        }
+
+        public void Post(Customer c)
+        {
+            _context.Customers.Add(c);
+            _context.SaveChanges();
+        }
+
+        public void Put(int id, Customer c)
+        {
+            var f = Get(id);
             if (f != null)
-            { 
-                f.name = c.name;
-                f.phone = c.phone;
-                f.address = c.address;
-                f.lastPurchaseDate = c.lastPurchaseDate;
+            {
+                f.Name = c.Name;
+                f.Phone = c.Phone;
+                f.Address = c.Address;
+                f.LastPurchaseDate = c.LastPurchaseDate;
+                _context.SaveChanges();
             }
         }
 
         public void Delete(int id)
         {
-            _context.CustomersList.Remove(_context.CustomersList.First(e => e.id == id));
+            _context.Customers.Remove(Get(id));
+            _context.SaveChanges();
         }
     }
 }

@@ -18,34 +18,39 @@ namespace BeitHapsanter_Data.Repositories
 
         public List<MusicalInstrument> GetAllMusicalInstruments()
         {
-            return _context.MusicalInstrumentList;
+            return _context.MusicalInstruments.ToList();
         }
+
         public MusicalInstrument Get(int code)
         {
-            return _context.MusicalInstrumentList.First((x) => x.code == code);
+            return _context.MusicalInstruments.ToList().First((x) => x.Id == code);
         }
+
         public void Post(MusicalInstrument m)
         {
-            _context.MusicalInstrumentList.Add(new MusicalInstrument { code = _context.MusicalInstrumentCount++, name = m.name, manufacturer = m.manufacturer, costPrice = m.costPrice, purchasePrice = m.purchasePrice, stockpile=m.stockpile, providerCode=m.providerCode });
+            _context.MusicalInstruments.Add(m);
+            _context.SaveChanges();
         }
 
         public void Put(int code, MusicalInstrument m)
         {
-            var f = _context.MusicalInstrumentList.Find(e => e.code == code);
+            var f = Get(code);
             if (f != null)
             {
-                f.name = m.name;
-                f.manufacturer = m.manufacturer;
-                f.costPrice = m.costPrice;
-                f.purchasePrice = m.purchasePrice;
-                f.stockpile = m.stockpile;
-                f.providerCode = m.providerCode;
+                f.Name = m.Name;
+                f.Manufacturer = m.Manufacturer;
+                f.CostPrice = m.CostPrice;
+                f.PurchasePrice = m.PurchasePrice;
+                f.Satockpile = m.Satockpile;
+                f.ProviderCode = m.ProviderCode;
+                _context.SaveChanges();
             }
         }
 
         public void Delete(int code)
         {
-            _context.MusicalInstrumentList.Remove(_context.MusicalInstrumentList.First(e => e.code == code));
+            _context.MusicalInstruments.Remove(Get(code));
+            _context.SaveChanges();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BeitHapsanter_Core.Entitits;
+﻿using BeitHapsanter_Api.Models;
+using BeitHapsanter_Core.Entitits;
 using BeitHapsanter_Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,16 +32,18 @@ namespace BeitHapsanter_Api.Controllers
 
         // POST api/<ProviderController>
         [HttpPost]
-        public void Post([FromBody] Provider p)
+        public void Post([FromBody] ProviderPostModel p)
         {
-            _data.Post(p);
+            Provider provider = new Provider { Name = p.Name, Address = p.Address, Phone = p.Phone };
+            _data.Post(provider);
         }
 
         // POST api/<ProviderController>
         [HttpPut]
-        public void Put(int id, [FromBody] Provider p)
+        public void Put(int id, [FromBody] ProviderPostModel p)
         {
-            _data.Put(id, p);
+            Provider provider = new Provider { Name = p.Name,Address=p.Address, Phone = p.Phone };
+            _data.Put(id, provider);
         }
 
         // DELETE api/<ProviderController>/5

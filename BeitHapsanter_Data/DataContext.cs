@@ -1,23 +1,16 @@
-﻿using BeitHapsanter_Core.Entitits;
+﻿using Microsoft.EntityFrameworkCore;
+using BeitHapsanter_Core.Entitits;
 
 namespace BeitHapsanter_Data
 {
-    public class DataContext
+    public class DataContext: DbContext
     {
-        public List<Customers> CustomersList { get; set; }
-        public List<MusicalInstrument> MusicalInstrumentList { get; set; }
-        public List<Provider> ProviderList { get; set; }
-        public int CustomersCount { get; set; }
-        public int MusicalInstrumentCount { get; set; }
-        public int ProviderCount { get; set; }
-        public DataContext()
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<MusicalInstrument> MusicalInstruments { get; set; }
+        public DbSet<Provider> Providers { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            CustomersList = new List<Customers>();
-            MusicalInstrumentList = new List<MusicalInstrument>();
-            ProviderList = new List<Provider>();
-            CustomersCount = 0;
-            MusicalInstrumentCount = 0;
-            ProviderCount = 0;
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=rruth");
         }
 
     }

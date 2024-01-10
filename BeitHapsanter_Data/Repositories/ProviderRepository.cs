@@ -18,29 +18,37 @@ namespace BeitHapsanter_Data.Repositories
 
         public List<Provider> GetAllProviders()
         {
-            return _context.ProviderList;
+            return _context.Providers.ToList();
         }
+
         public Provider Get(int id)
         {
-            return _context.ProviderList.First((x) => x.id == id);
+            return _context.Providers.ToList().First((x) => x.Id == id);
         }
+
         public void Post(Provider p)
         {
-            _context.ProviderList.Add(new Provider { id = _context.ProviderCount++, name = p.name, phone = p.phone, address = p.address });
+            _context.Providers.Add(p);
+            _context.SaveChanges();
         }
 
         public void Put(int id, Provider p)
         {
-            var f = _context.ProviderList.First(e => e.id == id);
-            f.name = p.name;
-            f.phone = p.phone;
-            f.address = p.address;
+            var f = Get(id);
+            if (f != null)
+            {
+                f.Name = p.Name;
+                f.Phone = p.Phone;
+                f.Address = p.Address;
+                _context.SaveChanges();
+            }
         }
 
         public void Delete(int id)
         {
-            var p = _context.ProviderList.First(e => e.id == id);
-            _context.ProviderList.Remove(p);
+            var p = Get(id);
+            _context.Providers.Remove(p);
+            _context.SaveChanges();
         }
     }
 }

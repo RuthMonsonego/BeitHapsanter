@@ -11,6 +11,7 @@ namespace BeitHapsanter_Service.Services
     public class ProviderService
     {
         private readonly IProviderRepository providerRepository;
+
         public ProviderService(IProviderRepository providerRepository)
         {
             this.providerRepository = providerRepository;
@@ -20,10 +21,12 @@ namespace BeitHapsanter_Service.Services
         {
             return providerRepository.GetAllProviders();
         }
+
         public Provider Get(int id)
         {
             return providerRepository.Get(id);
         }
+
         public void Post(Provider p)
         {
             providerRepository.Post(p);

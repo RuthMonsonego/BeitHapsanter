@@ -9,10 +9,10 @@ namespace BeitHapsanter_Core.Repositories
 {
     public interface ICustomersRepository
     {
-        List<Customers> AllCustomers();
-        Customers Get(int id);
-        void Post(Customers c);
-        void Put(int id, Customers c);
+        List<Customer> GetAllCustomers();
+        Customer Get(int id);
+        void Post(Customer c);
+        void Put(int id, Customer c);
         void Delete(int id);
     }
 }

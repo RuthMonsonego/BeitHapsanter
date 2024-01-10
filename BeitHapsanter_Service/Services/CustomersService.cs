@@ -10,33 +10,36 @@ namespace BeitHapsanter_Service.Services
 {
     public class CustomersService
     {
-        private readonly ICustomersRepository customersRepository;
+        private readonly ICustomersRepository _customersRepository;
+
         public CustomersService(ICustomersRepository customersRepository)
         {
-            this.customersRepository = customersRepository;
+            this._customersRepository = customersRepository;
         }
 
-        public List<Customers> getCustomers()
+        public List<Customer> getCustomers()
         {
-            return customersRepository.AllCustomers();
-        }
-        public Customers Get(int id)
-        {
-            return customersRepository.Get(id);
-        }
-        public void Post(Customers c)
-        {
-            customersRepository.Post(c);
+            return _customersRepository.GetAllCustomers().ToList();
         }
 
-        public void Put(int id, Customers c)
+        public Customer Get(int id)
         {
-            customersRepository.Put(id, c);
+            return _customersRepository.Get(id);
+        }
+
+        public void Post(Customer c)
+        {
+            _customersRepository.Post(c);
+        }
+
+        public void Put(int id, Customer c)
+        {
+            _customersRepository.Put(id, c);
         }
 
         public void Delete(int id)
         {
-            customersRepository.Delete(id);
+            _customersRepository.Delete(id);
         }
     }
 }
